@@ -42,31 +42,6 @@ def fieldGalueModule(A, N):
     A = deleteExtraZeros(A)
     return fieldGalueModule(A, N)
 
-'''def fieldGalueModule(A, N):
-    A = deleteExtraZeros(A)
-    N = deleteExtraZeros(N)
-    if len(A) < len(N):
-        return A
-
-    shift = len(A) - len(N)
-    N_shifted = N + [0] * shift  # зсуваємо N вправо до ступеня A
-
-    A, N_shifted = toTheSameLength(A, N_shifted)
-    for i in range(len(A)):
-        A[i] = (A[i] + N_shifted[i]) % 2
-
-    A = deleteExtraZeros(A)
-    return fieldGalueModule(A, N)'''
-
-'''def fieldGalueModule(a, p_x):
-    a = deleteExtraZeros(a)
-    if len(a) < len(p_x):
-        return a
-    for i in range(len(p_x)):
-        a[i] = (a[i] + p_x[i]) % 2
-    a = deleteExtraZeros(a)
-    return fieldGalueModule(a, p_x)'''
-
 def fieldGalueAdd(A, B):
     A = deleteExtraZeros(A)
     B = deleteExtraZeros(B)
@@ -103,26 +78,6 @@ def fieldGaluePower(A, B, N):
         A = fieldGalueSquarePower(A, N)
     return result
 
-'''
-def fieldGaluePower(a, n, p_x):
-    res = [1]
-    for i in n:
-        if i == 1:
-            res, a = toTheSameLength(res, a)
-            res = fieldGalueMul(res, a, p_x)
-        a = fieldGalueSquarePower(a, p_x)
-    return res
-
-def fieldGaluePower(A, B, N):
-    A = deleteExtraZeros(A)
-    B = deleteExtraZeros(B)
-    result = [1]
-    for i in B:
-        if i == 1:
-            result = fieldGalueMul(result, A, N)
-        A = fieldGalueSquarePower(A, N)
-    return result'''
-
 def fieldGalueTrace(A, N):
     A = deleteExtraZeros(A)
     k = A
@@ -133,35 +88,6 @@ def fieldGalueTrace(A, N):
     result = sum(result) % 2
     result = stringToArray(str(result))
     return result
-'''
-def fieldGalueTrace(A, N):
-    A = deleteExtraZeros(A)
-    result = A
-    k = A
-    for i in range(m - 1):
-        k = fieldGalueSquarePower(k, N)
-        result = fieldGalueAdd(result, k)
-    result = sum(result) % 2
-    return result
-
-
-def fieldGalueInverseElement2(a, p_x):
-    m_new = bin(2**m - 2)[2:]
-    m1 = []
-    for i in m_new:
-        m1.append(int(i))
-    m1 = m1[::-1]
-    res = fieldGaluePower(a, m1, p_x)
-    return res
-
-def fieldGalueInverseElement3(a, p_x):
-    m_new = bin(2**m - 2)[2:]
-    m1 = []
-    for i in m_new:
-        m1.append(int(i))
-    m1 = m1[::-1]
-    res = fieldGaluePower(a, m1, p_x)
-    return res'''
 
 def fieldGalueInverseElement(A, N):
     k = bin(2**m - 2)[2:]
@@ -185,20 +111,17 @@ def fieldGaluefindOne(A, N):
 f = '10011011110110001011101001001010100110010000100110101101101011101110101010011110001110011010011101010111111010001010111101101101110110001100011010010011111111001111000001011101010001110110111100110101011100101110101010011100010101011'
 g = '10101101110111111101111110100011001100100111110110010010101111111110111000010011111111101110010110010111000010110010001101001010101001011011110101000110001001110101111101010100100101011010000011101010011011000001011010111001000010001'
 h = '10101001011010010000000001001101111100001111001101000010100010000001011000101110100000000000000000011111001111000100000110010111110001110101000011111111011101101001101101111010000001101100000110001111110011101010110011010111000100010'
-#f = '1000100000000000000000001111111111111111111111111111111111111111111111111111000000000000000000000000000000000000011111111111111111111111111'
-#g = '1010101'
-#h = '10'
 pp = stringToArray(p)
 ff = stringToArray(f)
 gg = stringToArray(g)
 hh = stringToArray(h)
-#print(arrayToString(ff))
-#print(fieldGalueAdd(ff, gg))
-#print(fieldGalueModule(ff, pp))
-#print(fieldGalueMul(ff, gg, pp))
-#print(fieldGaluePower(gg, hh, pp))
-#print(fieldGalueInverseElement(gg, pp))
-#print(fieldGaluefindOne(ff, pp))
+print(arrayToString(ff))
+print(fieldGalueAdd(ff, gg))
+print(fieldGalueModule(ff, pp))
+print(fieldGalueMul(ff, gg, pp))
+print(fieldGaluePower(gg, hh, pp))
+print(fieldGalueInverseElement(gg, pp))
+print(fieldGaluefindOne(ff, pp))
 print(fieldGaluefindZero(ff))
 print(fieldGalueMul(fieldGalueInverseElement(gg, pp), gg, pp))
 print(fieldGaluefindOne(ff, pp))
