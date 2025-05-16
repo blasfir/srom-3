@@ -33,7 +33,7 @@ def arrayToString(n):
     result = ''.join(n)    
     return result
 
-def fieldGalueModule(A, N):
+def fieldGalueModule2(A, N):
     A = deleteExtraZeros(A)
     if len(A) < len(N):
         return A
@@ -41,6 +41,15 @@ def fieldGalueModule(A, N):
         A[i] = (A[i] + N[i]) % 2
     A = deleteExtraZeros(A)
     return fieldGalueModule(A, N)
+
+def fieldGalueModule(a, p_x):
+    if len(a) < len(p_x):
+        return a
+    for i in range(len(p_x)):
+        a[i] = (a[i] + p_x[i]) % 2
+    while a and a[0] == 0:
+        a.pop(0)
+    return fieldGalueModule(a, p_x)
 
 def fieldGalueAdd(A, B):
     A = deleteExtraZeros(A)
@@ -54,7 +63,7 @@ def fieldGalueAdd(A, B):
     result = deleteExtraZeros(result)    
     return result
 
-def fieldGalueMul(A, B, N):
+def fieldGalueMul2(A, B, N):
     A = deleteExtraZeros(A)
     B = deleteExtraZeros(B)
     A, B = toTheSameLength(A, B)
@@ -67,6 +76,16 @@ def fieldGalueMul(A, B, N):
                 result[i + j] = (result[i + j] + B[j]) % 2
     result = fieldGalueModule(result, N)            
     return deleteExtraZeros(result)
+
+def fieldGalueMul(a, b, p_x):
+    len_res = len(a) + len(b) - 1
+    res = [0] * len_res
+    for i in range(len(a)):
+        if a[i] == 1:
+            for j in range(len(b)):
+                res[i+j] = (res[i+j] + b[j]) % 2
+    return fieldGalueModule(res, p_x)
+
 
 def fieldGalueSquarePower(A, N):
     result = fieldGalueMul(A, A, N)
@@ -110,14 +129,33 @@ def fieldGaluefindOne(A, N):
     result = fieldGalueMul(A, A1, N)
     return result
 
-f = '10011011110110001011101001001010100110010000100110101101101011101110101010011110001110011010011101010111111010001010111101101101110110001100011010010011111111001111000001011101010001110110111100110101011100101110101010011100010101011'
+f = '11011011110110001011101001001010100110010000100110101101101011101110101010011110001110011010011101010111111010001010111101101101110110001100011010010011111111001111000001011101010001110110111100110101011100101110101010011100010101011'
 g = '10101101110111111101111110100011001100100111110110010010101111111110111000010011111111101110010110010111000010110010001101001010101001011011110101000110001001110101111101010100100101011010000011101010011011000001011010111001000010001'
-h = '10101001011010010000000001001101111100001111001101000010100010000001011000101110100000000000000000011111001111000100000110010111110001110101000011111111011101101001101101111010000001101100000110001111110011101010110011010111000100010'
+#h = '10101001011010010000000001001101111100001111001101000010100010000001011000101110100000000000000000011111001111000100000110010111110001110101000011111111011101101001101101111010000001101100000110001111110011101010110011010111000100010'
 pp = stringToArray(p)
 ff = stringToArray(f)
 gg = stringToArray(g)
-hh = stringToArray(h)
-print(arrayToString(ff))
+ggg = gg[::-1]
+
+#hh = stringToArray(h)
+print()
+print('fieldGaluefindZero: ' + arrayToString(fieldGaluefindZero(ff)))#ok
+print()
+print('fieldGaluefindOne: ' + arrayToString(fieldGaluefindOne(ff, pp)))#ok
+print()
+print('fieldGalueAdd: ' + arrayToString(fieldGalueAdd(gg, ff)))#ok
+print()
+print('fieldGalueMul: ' + arrayToString(fieldGalueMul(gg, ff, pp)))#ok
+print()
+print('fieldGalueTrace: ' + arrayToString(fieldGalueTrace(ff, pp)))#ok?
+print()
+print('fieldGalueSquarePower: ' + arrayToString(fieldGalueSquarePower(ff, pp)))#ok
+print()
+print('fieldGaluePower: ' + arrayToString(fieldGaluePower(ff, ggg, pp)))
+print()
+print('fieldGalueInverseElement: ' + arrayToString(fieldGalueInverseElement(ff, pp)))#ok
+
+'''print(arrayToString(ff))
 print(fieldGalueAdd(ff, gg))
 print(fieldGalueModule(ff, pp))
 print(fieldGalueMul(ff, gg, pp))
@@ -127,7 +165,8 @@ print(fieldGaluefindOne(ff, pp))
 print(fieldGaluefindZero(ff))
 print(fieldGalueMul(fieldGalueInverseElement(gg, pp), gg, pp))
 print(fieldGaluefindOne(ff, pp))
-print(fieldGalueTrace(hh, pp))
+print(fieldGalueTrace(hh, pp))'''
+'''
 sumGF = fieldGalueAdd(gg, ff)
 sumGFmulH = fieldGalueMul(sumGF, hh, pp)
 mulHsumGF = fieldGalueMul(hh, sumGF, pp)
@@ -172,4 +211,4 @@ print(f"Середній час роботи fieldGalueInverseElement: {avg7:.10
 avg8 = timeSearch(stringToArray, g)
 print(f"Середній час роботи stringToArray: {avg8:.10f} сек")
 avg9 = timeSearch(arrayToString, gg)
-print(f"Середній час роботи arrayToString: {avg9:.10f} сек")
+print(f"Середній час роботи arrayToString: {avg9:.10f} сек")'''
