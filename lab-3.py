@@ -58,11 +58,13 @@ def fieldGalueMul(A, B, N):
     A = deleteExtraZeros(A)
     B = deleteExtraZeros(B)
     A, B = toTheSameLength(A, B)
-    result = [0] * (len(A) * 2 - 1)
-    for i in range(len(A)):
+    k = len(A)
+    t = len(B)
+    result = [0] * (k * 2 - 1)
+    for i in range(k):
         if A[i] == 1:
             for j in range(len(B)):
-                result[i+j] = (result[i+j] + B[j]) % 2
+                result[i + j] = (result[i + j] + B[j]) % 2
     result = fieldGalueModule(result, N)            
     return deleteExtraZeros(result)
 
@@ -158,7 +160,7 @@ print(f"Середній час роботи fieldGaluefindOne: {avg1:.10f} се
 avg2 = timeSearch(fieldGalueAdd, gg, ff)
 print(f"Середній час роботи fieldGalueAdd: {avg2:.10f} сек")
 avg3 = timeSearch(fieldGalueMul, gg, ff, pp)
-print(f"Середній час роботи longMulOneDigit: {avg3:.10f} сек")
+print(f"Середній час роботи fieldGalueMul: {avg3:.10f} сек")
 avg4 = timeSearch(fieldGalueTrace, gg, pp)
 print(f"Середній час роботи fieldGalueTrace: {avg4:.10f} сек")
 avg5 = timeSearch(fieldGalueSquarePower, gg, pp)
