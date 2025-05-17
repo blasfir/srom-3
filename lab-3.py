@@ -33,7 +33,7 @@ def arrayToString(n):
     result = ''.join(n)    
     return result
 
-def fieldGalueModule2(A, N):
+def fieldGalueModule(A, N):
     A = deleteExtraZeros(A)
     if len(A) < len(N):
         return A
@@ -41,15 +41,6 @@ def fieldGalueModule2(A, N):
         A[i] = (A[i] + N[i]) % 2
     A = deleteExtraZeros(A)
     return fieldGalueModule(A, N)
-
-def fieldGalueModule(a, p_x):
-    if len(a) < len(p_x):
-        return a
-    for i in range(len(p_x)):
-        a[i] = (a[i] + p_x[i]) % 2
-    while a and a[0] == 0:
-        a.pop(0)
-    return fieldGalueModule(a, p_x)
 
 def fieldGalueAdd(A, B):
     A = deleteExtraZeros(A)
@@ -63,7 +54,7 @@ def fieldGalueAdd(A, B):
     result = deleteExtraZeros(result)    
     return result
 
-def fieldGalueMul2(A, B, N):
+def fieldGalueMul(A, B, N):
     A = deleteExtraZeros(A)
     B = deleteExtraZeros(B)
     A, B = toTheSameLength(A, B)
@@ -77,21 +68,12 @@ def fieldGalueMul2(A, B, N):
     result = fieldGalueModule(result, N)            
     return deleteExtraZeros(result)
 
-def fieldGalueMul(a, b, p_x):
-    len_res = len(a) + len(b) - 1
-    res = [0] * len_res
-    for i in range(len(a)):
-        if a[i] == 1:
-            for j in range(len(b)):
-                res[i+j] = (res[i+j] + b[j]) % 2
-    return fieldGalueModule(res, p_x)
-
-
 def fieldGalueSquarePower(A, N):
     result = fieldGalueMul(A, A, N)
     return result
 
 def fieldGaluePower(A, B, N):
+    B = B[::-1]
     result = [1]
     for i in B:
         if i == 1:
@@ -113,7 +95,6 @@ def fieldGalueTrace(A, N):
 def fieldGalueInverseElement(A, N):
     k = bin(2**m - 2)[2:]
     k = stringToArray(k)
-    k = k[::-1]
     result = fieldGaluePower(A, k, N)
     return result
 
@@ -135,25 +116,24 @@ g = '101011011101111111011111101000110011001001111101100100101011111111101110000
 pp = stringToArray(p)
 ff = stringToArray(f)
 gg = stringToArray(g)
-ggg = gg[::-1]
-
 #hh = stringToArray(h)
+
 print()
-print('fieldGaluefindZero: ' + arrayToString(fieldGaluefindZero(ff)))#ok
+print('fieldGaluefindZero: ' + arrayToString(fieldGaluefindZero(ff)))
 print()
-print('fieldGaluefindOne: ' + arrayToString(fieldGaluefindOne(ff, pp)))#ok
+print('fieldGaluefindOne: ' + arrayToString(fieldGaluefindOne(ff, pp)))
 print()
-print('fieldGalueAdd: ' + arrayToString(fieldGalueAdd(gg, ff)))#ok
+print('fieldGalueAdd: ' + arrayToString(fieldGalueAdd(gg, ff)))
 print()
-print('fieldGalueMul: ' + arrayToString(fieldGalueMul(gg, ff, pp)))#ok
+print('fieldGalueMul: ' + arrayToString(fieldGalueMul(gg, ff, pp)))
 print()
-print('fieldGalueTrace: ' + arrayToString(fieldGalueTrace(ff, pp)))#ok?
+print('fieldGalueTrace: ' + arrayToString(fieldGalueTrace(ff, pp)))
 print()
-print('fieldGalueSquarePower: ' + arrayToString(fieldGalueSquarePower(ff, pp)))#ok
+print('fieldGalueSquarePower: ' + arrayToString(fieldGalueSquarePower(ff, pp)))
 print()
-print('fieldGaluePower: ' + arrayToString(fieldGaluePower(ff, ggg, pp)))
+print('fieldGaluePower: ' + arrayToString(fieldGaluePower(ff, gg, pp)))
 print()
-print('fieldGalueInverseElement: ' + arrayToString(fieldGalueInverseElement(ff, pp)))#ok
+print('fieldGalueInverseElement: ' + arrayToString(fieldGalueInverseElement(ff, pp)))
 
 '''print(arrayToString(ff))
 print(fieldGalueAdd(ff, gg))
